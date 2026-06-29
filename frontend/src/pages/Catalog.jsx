@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ShoppingCart, Search, Filter, Package, AlertCircle } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext.jsx';
 import StatusModal from '../components/StatusModal.jsx';
+import { API_BASE } from '../config';
 
 export default function Catalog() {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,7 @@ export default function Catalog() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/products', {
+      const res = await fetch(`${API_BASE}/products`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -65,7 +66,7 @@ export default function Catalog() {
     }
 
     try {
-      const res = await fetch('http://localhost:5001/api/orders', {
+      const res = await fetch(`${API_BASE}/orders`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import { Trash2, Filter, Plus, X, AlertCircle } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { Navigate } from 'react-router';
 import StatusModal from '../components/StatusModal.jsx';
+import { API_BASE } from '../config';
 
 export default function Inventory() {
   const [products, setProducts] = useState([]);
@@ -29,7 +30,7 @@ export default function Inventory() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/products', {
+      const res = await fetch(`${API_BASE}/products`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -54,7 +55,7 @@ export default function Inventory() {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5001/api/products', {
+      const res = await fetch(`${API_BASE}/products`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ export default function Inventory() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5001/api/products/${id}`, {
+      const res = await fetch(`${API_BASE}/products/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
