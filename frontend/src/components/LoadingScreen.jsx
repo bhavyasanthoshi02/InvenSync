@@ -63,30 +63,30 @@ export default function LoadingScreen({ onFinish }) {
         <div className="ls-logo-wrap">
           <div className="ls-logo-ring ls-ring-outer" />
           <div className="ls-logo-ring ls-ring-middle" />
-          <div className="ls-logo-core">
+        <div className="ls-logo-core" style={{ color: 'var(--ls-accent)' }}>
             <svg width="38" height="38" viewBox="0 0 24 24" fill="none">
               <path
                 d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"
-                stroke="#ffd60a"
+                stroke="currentColor"
                 strokeWidth="1.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
                 d="M9 22V12h6v10"
-                stroke="#ffd60a"
+                stroke="currentColor"
                 strokeWidth="1.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <circle cx="12" cy="9" r="1.5" fill="#ffd60a" />
+              <circle cx="12" cy="9" r="1.5" fill="currentColor" />
             </svg>
           </div>
         </div>
 
         {/* Brand name */}
         <h1 className="ls-brand">
-          Stock<span className="ls-brand-accent">Flow</span>
+          Inven<span className="ls-brand-accent">Sync</span>
         </h1>
         <p className="ls-tagline">Smart Inventory Intelligence</p>
 
