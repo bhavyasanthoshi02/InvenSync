@@ -1,6 +1,6 @@
-# InventoryX
+# InvenSync
 
-InventoryX is a modern, responsive, and feature-rich **Inventory Management System** designed to streamline tracking of products, suppliers, orders, and activity logs. Built on the **MERN** stack (MongoDB, Express, React, Node.js), it provides real-time stock insights, visual sales/stock analytics, and role-based access control.
+InvenSync is a modern, responsive, and feature-rich **Inventory Management System** designed to streamline tracking of products, suppliers, orders, and activity logs. Built on the **MERN** stack (MongoDB, Express, React, Node.js), it provides real-time stock insights, visual sales/stock analytics, and role-based access control.
 
 ---
 
