@@ -1,0 +1,368 @@
+/* ============================================================
+   LoadingScreen.css — StockFlow Premium Loading Screen
+   Matches dark theme: bg #0a0b0e, accent #ffd60a (Outfit font)
+   ============================================================ */
+
+/* ---- Wrapper ---- */
+.ls-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0b0e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Outfit', sans-serif;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.ls-wrapper.ls-fadeout {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+/* ---- Ambient Orbs ---- */
+.ls-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.ls-orb-1 {
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(255, 214, 10, 0.18) 0%, transparent 70%);
+  top: -160px;
+  left: -120px;
+  animation: orbDrift1 12s ease-in-out infinite;
+}
+
+.ls-orb-2 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, transparent 70%);
+  bottom: -80px;
+  right: -80px;
+  animation: orbDrift2 15s ease-in-out infinite;
+}
+
+.ls-orb-3 {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.1) 0%, transparent 70%);
+  top: 40%;
+  right: 15%;
+  animation: orbDrift3 10s ease-in-out infinite;
+}
+
+@keyframes orbDrift1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(40px, 60px); }
+}
+@keyframes orbDrift2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-30px, -50px); }
+}
+@keyframes orbDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 30px) scale(1.15); }
+}
+
+/* ---- Animated Grid ---- */
+.ls-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 214, 10, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 214, 10, 0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  animation: gridPulse 4s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ---- Center Content ---- */
+.ls-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+/* ---- Logo Orbital Rings ---- */
+.ls-logo-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.ls-logo-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+}
+
+.ls-ring-outer {
+  width: 120px;
+  height: 120px;
+  border-color: rgba(255, 214, 10, 0.25);
+  border-top-color: #ffd60a;
+  animation: ringSpinOuter 2.4s linear infinite;
+  box-shadow: 0 0 20px rgba(255, 214, 10, 0.15);
+}
+
+.ls-ring-middle {
+  width: 88px;
+  height: 88px;
+  border-color: rgba(255, 214, 10, 0.15);
+  border-bottom-color: rgba(255, 214, 10, 0.7);
+  animation: ringSpinMiddle 1.8s linear infinite reverse;
+}
+
+.ls-logo-core {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #16181d;
+  border: 1px solid #23272f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 1px rgba(255, 214, 10, 0.1),
+    0 0 30px rgba(255, 214, 10, 0.2),
+    inset 0 0 20px rgba(255, 214, 10, 0.05);
+  animation: corePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes ringSpinOuter {
+  to { transform: rotate(360deg); }
+}
+@keyframes ringSpinMiddle {
+  to { transform: rotate(360deg); }
+}
+@keyframes corePulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(255,214,10,0.1), 0 0 30px rgba(255,214,10,0.2), inset 0 0 20px rgba(255,214,10,0.05); }
+  50% { box-shadow: 0 0 0 1px rgba(255,214,10,0.25), 0 0 50px rgba(255,214,10,0.35), inset 0 0 30px rgba(255,214,10,0.1); }
+}
+
+/* ---- Brand Name ---- */
+.ls-brand {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  line-height: 1;
+  animation: brandReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ls-brand-accent {
+  color: #ffd60a;
+  text-shadow: 0 0 20px rgba(255, 214, 10, 0.5);
+}
+
+@keyframes brandReveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ls-tagline {
+  font-size: 0.95rem;
+  color: #8c939d;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+  animation: brandReveal 0.8s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ---- Scan Bars ---- */
+.ls-scan-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 32px;
+}
+
+.ls-scan-bar {
+  width: 5px;
+  border-radius: 3px;
+  background: linear-gradient(to top, #ffd60a, rgba(255, 214, 10, 0.3));
+  animation: scanBarBounce 0.9s ease-in-out infinite;
+}
+
+.ls-scan-bar:nth-child(1) { height: 55%; }
+.ls-scan-bar:nth-child(2) { height: 80%; }
+.ls-scan-bar:nth-child(3) { height: 100%; }
+.ls-scan-bar:nth-child(4) { height: 75%; }
+.ls-scan-bar:nth-child(5) { height: 50%; }
+
+@keyframes scanBarBounce {
+  0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
+  50%       { transform: scaleY(1);   opacity: 1;   }
+}
+
+/* ---- Progress ---- */
+.ls-progress-wrap {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ls-progress-track {
+  height: 5px;
+  background: #23272f;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ls-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffc300, #ffd60a, #ffe566);
+  border-radius: 999px;
+  transition: width 0.15s linear;
+  position: relative;
+}
+
+.ls-progress-glow {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffd60a;
+  box-shadow: 0 0 12px 4px rgba(255, 214, 10, 0.7);
+}
+
+.ls-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ls-loading-msg {
+  font-size: 0.8rem;
+  color: #8c939d;
+  transition: opacity 0.3s;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.ls-percent {
+  font-size: 0.8rem;
+  color: #ffd60a;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Floating Data Chips ---- */
+.ls-chips {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.ls-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #16181d;
+  border: 1px solid #23272f;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.78rem;
+  color: #8c939d;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  animation: chipFloat 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ls-chip-1 { animation-delay: 0.3s; }
+.ls-chip-2 { animation-delay: 0.5s; }
+.ls-chip-3 { animation-delay: 0.7s; }
+
+@keyframes chipFloat {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ls-chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: dotPulse 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+.ls-chip-1 .ls-chip-dot { background: #ffd60a; animation-delay: 0s; }
+.ls-chip-2 .ls-chip-dot { background: #6366f1; animation-delay: 0.3s; }
+.ls-chip-3 .ls-chip-dot { background: #34d399; animation-delay: 0.6s; }
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ---- Footer ---- */
+.ls-footer {
+  position: absolute;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ls-footer-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ls-footer-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #23272f;
+  display: inline-block;
+  animation: footerDotBlink 1.2s ease-in-out infinite;
+}
+
+@keyframes footerDotBlink {
+  0%, 100% { background: #23272f; transform: scale(1); }
+  50%       { background: #ffd60a; transform: scale(1.4); }
+}
+
+.ls-footer-text {
+  font-size: 0.7rem;
+  color: #3d4452;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+  .ls-brand { font-size: 2.1rem; }
+  .ls-progress-wrap { width: 290px; }
+  .ls-chips { gap: 0.5rem; }
+  .ls-chip { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+}
