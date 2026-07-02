@@ -6,11 +6,11 @@ import {
   ShoppingCart, 
   Users, 
   Settings, 
-  Box,
   Store,
   LogOut,
   User as UserIcon
 } from 'lucide-react';
+import InvenSyncLogo from './InvenSyncLogo.jsx';
 import { AuthContext } from '../context/AuthContext.jsx';
 
 export default function MainLayout() {
@@ -28,7 +28,7 @@ export default function MainLayout() {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="logo-container">
-          <Box className="logo-icon" size={32} />
+          <InvenSyncLogo size={32} className="logo-icon" />
           <span className="logo-text">InvenSync</span>
         </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { Box, Mail, Lock, LogIn, Eye, EyeOff, Package, ShieldCheck, Zap, BarChart3, Users } from 'lucide-react';
+import { Mail, Lock, LogIn, Eye, EyeOff, Package, ShieldCheck, Zap, BarChart3, Users } from 'lucide-react';
+import InvenSyncLogo from '../components/InvenSyncLogo.jsx';
 import { AuthContext } from '../context/AuthContext.jsx';
 
 const features = [
@@ -54,7 +55,7 @@ export default function Login() {
       }}>
         <div className="auth-v2-card" style={{ width: '100%', maxWidth: '420px', position: 'relative' }}>
           <div className="auth-v2-logo">
-            <Box className="logo-icon" size={44} />
+            <InvenSyncLogo size={44} className="logo-icon" />
             <span className="logo-text" style={{ fontSize: '1.8rem' }}>InvenSync</span>
           </div>
 
