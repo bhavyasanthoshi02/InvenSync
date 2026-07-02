@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Download, CheckCircle, Clock, Truck, X, XCircle, Info, Calendar, MessageSquare, Package, User as UserIcon } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext.jsx';
 import StatusModal from '../components/StatusModal.jsx';
+import { API_BASE } from '../config';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -21,7 +22,7 @@ export default function Orders() {
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/orders', {
+      const res = await fetch(`${API_BASE}/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -50,7 +51,7 @@ export default function Orders() {
         adminMessage: adminMessage,
       };
 
-      const res = await fetch(`http://localhost:5001/api/orders/${selectedOrder._id}/status`, {
+      const res = await fetch(`${API_BASE}/orders/${selectedOrder._id}/status`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',

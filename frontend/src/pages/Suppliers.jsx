@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Mail, Phone, Plus, X, Trash2, User } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext.jsx';
+import { API_BASE } from '../config';
 
 export default function Suppliers() {
   const [suppliers, setSuppliers] = useState([]);
@@ -20,7 +21,7 @@ export default function Suppliers() {
 
   const fetchSuppliers = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/suppliers', {
+      const res = await fetch(`${API_BASE}/suppliers`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -41,7 +42,7 @@ export default function Suppliers() {
   const handleAddSupplier = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5001/api/suppliers', {
+      const res = await fetch(`${API_BASE}/suppliers`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -65,7 +66,7 @@ export default function Suppliers() {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this supplier?')) return;
     try {
-      const res = await fetch(`http://localhost:5001/api/suppliers/${id}`, {
+      const res = await fetch(`${API_BASE}/suppliers/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });

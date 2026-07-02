@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Package, TrendingUp, AlertTriangle, ArrowUpRight, Image as ImageIcon, MoreVertical } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { AuthContext } from '../context/AuthContext.jsx';
+import { API_BASE } from '../config';
 
 const salesData = [
   { name: 'Mon', revenue: 4000, items: 240 },
@@ -21,7 +22,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
-        const res = await fetch('http://localhost:5001/api/dashboard', {
+        const res = await fetch(`${API_BASE}/dashboard`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
