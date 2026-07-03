@@ -51,3 +51,54 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Custom Workspace Themes */
+body.theme-emerald {
+  --accent: #10b981;
+  --accent-hover: #059669;
+  --accent-glow: rgba(16, 185, 129, 0.15);
+}
+
+body.theme-rosegold {
+  --accent: #e5a698;
+  --accent-hover: #d49587;
+  --accent-glow: rgba(229, 166, 152, 0.15);
+}
+
+body.theme-royalblue {
+  --accent: #4169e1;
+  --accent-hover: #3158c9;
+  --accent-glow: rgba(65, 105, 225, 0.15);
+}
+
+/* Shelf Planner Responsiveness */
+.shelf-planner-container {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .shelf-planner-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shelves-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .shelves-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .shelves-grid {
+    grid-template-columns: 1fr;
+  }
+}
