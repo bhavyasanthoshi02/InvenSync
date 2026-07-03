@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 
 // Logic & Layout
@@ -16,6 +16,7 @@ import Settings from './pages/Settings.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import Catalog from './pages/Catalog.jsx';
+import ShelfPlanner from './pages/ShelfPlanner.jsx';
 
 import ThemeToggle from './components/ThemeToggle.jsx';
 import LoadingScreen from './components/LoadingScreen.jsx';
@@ -23,6 +24,14 @@ import './App.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('workspace-theme') || 'slate';
+    document.body.classList.remove('theme-slate', 'theme-emerald', 'theme-rosegold', 'theme-royalblue');
+    if (savedTheme !== 'slate') {
+      document.body.classList.add(`theme-${savedTheme}`);
+    }
+  }, []);
 
   return (
     <>
@@ -42,6 +51,7 @@ function App() {
                 <Route path="/inventory" element={<Inventory />} />
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/suppliers" element={<Suppliers />} />
+                <Route path="/shelf-planner" element={<ShelfPlanner />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/catalog" element={<Catalog />} />
               </Route>

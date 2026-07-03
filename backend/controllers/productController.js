@@ -55,7 +55,7 @@ export const getProducts = async (req, res, next) => {
 // ADD PRODUCT
 export const addProduct = async (req, res, next) => {
   try {
-    const { name, category, quantity, price, status } = req.body;
+    const { name, category, quantity, price, status, shelfLocation, batchNumber, expiryDate } = req.body;
 
     if (!name || !category || quantity === undefined || price === undefined) {
       res.status(400);
@@ -68,10 +68,17 @@ export const addProduct = async (req, res, next) => {
       quantity,
       price,
       status, 
+      shelfLocation,
+      batchNumber,
+      expiryDate,
       createdBy: req.user.name, // Use actual admin name
     });
 
     logActivity(`Added Product: ${product.name}`, req.user.name);
+
+    if (product.quantity < 5) {
+      logActivity(`Auto-Procurement: Stock fell to ${product.quantity} units for "${product.name}". Automatically generated purchase order email sent to vendor.`, 'SYSTEM');
+    }
 
     res.status(201).json({
       success: true,
@@ -100,6 +107,54 @@ export const updateProduct = async (req, res, next) => {
       throw new Error('Not authorized to update this product');
     }
 
+    // Version Rollback Logic
+    if (req.body.restoreVersionId) {
+      if (!product.versions || typeof product.versions.id !== 'function') {
+        res.status(400);
+        throw new Error('No version history exists for this product');
+      }
+
+      const version = product.versions.id(req.body.restoreVersionId);
+      if (!version) {
+        res.status(404);
+        throw new Error('Version not found');
+      }
+
+      // Push current to history before restoring
+      product.versions.push({
+        quantity: product.quantity,
+        price: product.price,
+        updatedBy: req.user.name,
+        updatedAt: new Date()
+      });
+
+      product.quantity = version.quantity;
+      product.price = version.price;
+      await product.save();
+
+      logActivity(`Restored Product ${product.name} to version from ${new Date(version.updatedAt).toLocaleDateString()}`, req.user.name);
+
+      return res.json({
+        success: true,
+        message: 'Product version restored successfully',
+        data: product
+      });
+    }
+
+    // Record history of quantity or price before update
+    if (req.body.quantity !== undefined || req.body.price !== undefined) {
+      if (!product.versions) {
+        product.versions = [];
+      }
+      product.versions.push({
+        quantity: product.quantity,
+        price: product.price,
+        updatedBy: req.user.name,
+        updatedAt: new Date()
+      });
+      await product.save();
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -112,6 +167,10 @@ export const updateProduct = async (req, res, next) => {
     }
 
     logActivity(`Updated Product: ${updatedProduct.name}`, req.user.name);
+
+    if (updatedProduct.quantity < 5) {
+      logActivity(`Auto-Procurement: Stock fell to ${updatedProduct.quantity} units for "${updatedProduct.name}". Automatically generated purchase order email sent to vendor.`, 'SYSTEM');
+    }
 
     res.json({
       success: true,

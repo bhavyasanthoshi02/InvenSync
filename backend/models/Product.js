@@ -33,6 +33,25 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    shelfLocation: {
+      type: String,
+      default: '',
+    },
+    batchNumber: {
+      type: String,
+      default: '',
+    },
+    expiryDate: {
+      type: Date,
+    },
+    versions: [
+      {
+        quantity: { type: Number },
+        price: { type: Number },
+        updatedBy: { type: String },
+        updatedAt: { type: Date, default: Date.now }
+      }
+    ],
   },
   {
     timestamps: true,
